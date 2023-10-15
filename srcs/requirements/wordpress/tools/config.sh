@@ -11,7 +11,7 @@ wp_installation()
 	echo wp config create
 	wp.phar config create --allow-root --dbname=$MARIADB_DATABASE --dbuser=$MARIADB_USER --dbpass=$MARIADB_PASSWORD --dbhost=mariadb_container --path=$WP_FOLDER
 	echo wp core install
-	wp.phar core install --allow-root --url="$USER.42.fr" --admin_user=$WORDPRESS_ADMIN --title="my website" --admin_email=$WORDPRESS_ADMIN_EMAIL --admin_password=$WORDPRESS_ADMIN_PASSWORD --path=$WP_FOLDER
+	wp.phar core install --allow-root --url="https://$USER.42.fr" --admin_user=$WORDPRESS_ADMIN --title="my website" --admin_email=$WORDPRESS_ADMIN_EMAIL --admin_password=$WORDPRESS_ADMIN_PASSWORD --path=$WP_FOLDER
 	echo user create
 	wp.phar user create --allow-root $WORDPRESS_USER $WORDPRESS_USER_EMAIL --user_pass=$WORDPRESS_USER_PASSWORD --role=author --path=$WP_FOLDER
 	echo -e WORDPRESS installed and configured !

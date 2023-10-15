@@ -1,6 +1,6 @@
 #! bin/bash
 
-sleep 5
+sleep 6
 
 ftp -n -v ftp-server_container<<EOF
 	ascii
