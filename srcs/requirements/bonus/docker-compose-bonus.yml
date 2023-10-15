@@ -1,0 +1,123 @@
+services:
+  nginx:
+    image: nginx:v1
+    container_name: nginx_container
+    build: ../nginx
+    restart: on-failure
+    depends_on:
+     - wordpress
+    ports:
+     - "443:443"
+    networks:
+     - inception
+    volumes:
+     - WORDPRESS:/var/www/html
+    env_file: ../../.env
+
+  mariadb:
+    image: mariadb:v1
+    container_name: mariadb_container
+    build: ../mariadb
+    restart: on-failure
+    ports:
+      - "3306:3306"
+    networks:
+      - inception
+    volumes:
+      - DB:/var/lib/mysql
+    env_file: ../../.env
+
+  wordpress:
+    image: wordpress:v1
+    container_name: wordpress_container
+    build: ../wordpress
+    depends_on:
+      - mariadb
+    restart: on-failure
+    ports:
+     - "9000:9000"
+    networks:
+     - inception
+    volumes:
+     - WORDPRESS:/var/www/html
+    env_file: ../../.env
+
+  ftp-server:
+    image: ftp-server:v1
+    container_name: ftp-server_container
+    build: ./ftp-server
+    depends_on:
+      - wordpress
+    restart: on-failure
+    ports:
+      - "20:20"
+      - "21:21"
+    networks:
+      - inception
+    volumes:
+      - WORDPRESS:/var/ftp
+    env_file: ../../.env
+
+  website:
+    image: website:v1
+    container_name: website_container
+    networks:
+      - inception
+    build: ./website
+    depends_on:
+      - ftp-server
+    env_file: ../../.env
+
+  adminer:
+    image: adminer:v1
+    container_name: adminer_container
+    networks:
+      - inception
+    build: ./adminer
+    depends_on:
+      - ftp-server
+    env_file: ../../.env
+
+  portainer:
+    image: portainer:v1
+    container_name: portainer_container
+    networks:
+      - inception
+    build: ./portainer
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - "9443:9443"
+      - "8000:8000"
+
+  redis:
+    image: redis:v1
+    container_name: redis_container
+    networks:
+      - inception
+    build : ./redis
+    ports:
+      - "6379:6379"
+
+networks:
+  inception:
+    name: inception
+    driver: bridge
+
+volumes:
+  DB:
+    name: DB
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: ${USER_HOME}/data/DB
+  WORDPRESS:
+    name: WORDPRESS
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: ${USER_HOME}/data/WORDPRESS
+
+

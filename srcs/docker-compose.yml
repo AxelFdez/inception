@@ -1,6 +1,6 @@
 services:
   nginx:
-    image: nginx
+    image: nginx:v1
     container_name: nginx_container
     build: ./requirements/nginx
     restart: on-failure
@@ -15,7 +15,7 @@ services:
     env_file: .env
 
   mariadb:
-    image: mariadb
+    image: mariadb:v1
     container_name: mariadb_container
     build: ./requirements/mariadb
     restart: on-failure
@@ -28,7 +28,7 @@ services:
     env_file: .env
 
   wordpress:
-    image: wordpress
+    image: wordpress:v1
     container_name: wordpress_container
     build: ./requirements/wordpress
     depends_on:
@@ -54,13 +54,13 @@ volumes:
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: ~/data/DB
+      device: ${USER_HOME}/data/DB
   WORDPRESS:
     name: WORDPRESS
     driver: local
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: ~/data/WORDPRESS
+      device: ${USER_HOME}/data/WORDPRESS
 
 

@@ -14,8 +14,6 @@ COPY ./conf/www.conf /etc/php/7.3/fpm/pool.d/www.conf
 
 RUN chmod +x ./config.sh
 
-VOLUME ~/data/WordPress
-
 EXPOSE 9000
 
 ENTRYPOINT ["./config.sh"]
