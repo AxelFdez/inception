@@ -17,10 +17,3 @@ RUN chmod +x ./config.sh
 EXPOSE 9000
 
 ENTRYPOINT ["./config.sh"]
-
-# wget adminer
-# mariadb-client
-# php-fpm.conf => deamon off, pid
-# www.conf => user, group, port
-
-
