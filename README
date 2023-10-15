@@ -58,7 +58,7 @@ Ce projet vise à mettre en place une petite infrastructure de services [nginx, 
 
     Architecture :
 
-```
+\```
 .
 ├── Makefile
 ├── output.txt
@@ -104,4 +104,4 @@ Ce projet vise à mettre en place une petite infrastructure de services [nginx, 
             ├── Dockerfile
             └── tools
                 └── config.sh
-```
+\```
