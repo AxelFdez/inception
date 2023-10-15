@@ -1,68 +1,70 @@
-PROJET INCEPTION
+# **PROJET INCEPTION**
 
-Ce projet vise à mettre en place une petite infrastructure de services [nginx, wordpress, mariadb] en utilisant Docker [bonus : seveur ftp, page html, redis, adminer portainer], le tout devant être exécuté sur une machine virtuelle. Voici les principales directives :
+Ce projet vise à mettre en place une petite infrastructure de services [nginx, wordpress, mariadb]
+en utilisant Docker [bonus : seveur ftp, page html, redis, adminer portainer],
+le tout devant être exécuté sur une machine virtuelle.
+Voici les principales directives :
 
-    Fichiers et Répertoires :
+Fichiers et Répertoires :
 
-    Tout le code source et les fichiers de configuration sont dans le dossier srcs.
-    Un Makefile est present à la racine du projet [all re bonus clean fclean rm-volumes]
-    Un fichier .env dans le dossier srcs doit etre present et stocker toutes les variables d'environnement nécessaires.
+Tout le code source et les fichiers de configuration sont dans le dossier srcs.
+Un Makefile est present à la racine du projet [all re bonus clean fclean rm-volumes]
+Un fichier .env dans le dossier srcs doit etre present et stocker toutes les variables d'environnement nécessaires.
 
-    Contenu du fichier .env :
-    MARIADB_ROOT_PASSWORD=
-    MARIADB_DATABASE=
-    MARIADB_USER=
-    MARIADB_PASSWORD=
-    WORDPRESS_ADMIN=
-    WORDPRESS_ADMIN_PASSWORD=
-    WORDPRESS_USER=
-    WORDPRESS_USER_PASSWORD=
-    WORDPRESS_ADMIN_EMAIL=
-    WORDPRESS_USER_EMAIL=
-    FTP_USER=
-    FTP_PASS=
+Contenu du fichier .env :
 
-    Conteneurs et Services :
+MARIADB_ROOT_PASSWORD=
+MARIADB_DATABASE=
+MARIADB_USER=
+MARIADB_PASSWORD=
+WORDPRESS_ADMIN=
+WORDPRESS_ADMIN_PASSWORD=
+WORDPRESS_USER=
+WORDPRESS_USER_PASSWORD=
+WORDPRESS_ADMIN_EMAIL=
+WORDPRESS_USER_EMAIL=
+FTP_USER=
+FTP_PASS=
 
-    Un conteneur NGINX utilisant uniquement TLSv1.2 ou TLSv1.3.
-    Un conteneur pour WordPress + php-fpm (sans NGINX).
-    Un conteneur pour MariaDB (sans NGINX).
+Conteneurs et Services :
 
-    Volumes et Réseaux :
+Un conteneur NGINX utilisant uniquement TLSv1.2 ou TLSv1.3.
+Un conteneur pour WordPress + php-fpm (sans NGINX).
+Un conteneur pour MariaDB (sans NGINX).
 
-    Un volume pour la base de données de WordPress.
-    Un volume pour les fichiers du site WordPress.
-    Un réseau Docker pour connecter tous ces conteneurs.
+Volumes et Réseaux :
 
-    Sécurité et Performance :
+Un volume pour la base de données de WordPress.
+Un volume pour les fichiers du site WordPress.
+Un réseau Docker pour connecter tous ces conteneurs.
 
-    Pas de mot de passe en clair dans les Dockerfiles.
-    Utilisation de Debian pour les images de conteneur (Pas d'images de services officielles)
+Sécurité et Performance :
 
-    Autres contraintes :
+Pas de mot de passe en clair dans les Dockerfiles.
+Utilisation de Debian pour les images de conteneur (Pas d'images de services officielles)
 
-    Les conteneurs doivent redémarrer automatiquement en cas de crash.
-    Interdiction d'utiliser certaines méthodes de liaison entre conteneurs (comme --link ou network: host).
+Autres contraintes :
 
-    Bonus :
+Les conteneurs doivent redémarrer automatiquement en cas de crash.
+Interdiction d'utiliser certaines méthodes de liaison entre conteneurs (comme --link ou network: host).
 
-    Un conteneur avec un serveur Redis pour le cache du site.
-    Un conteneur avec un serveur FTP qui pointe vers le volume Wordpress.
-    Un conteneur avec une simple page HTML qui l'envoie vers le conteneur Wordpress par FTP.
-    Un conteneur avec Adminer pour visualiser la base de donnee.
-    Un conteneur avec Portainer pour visualiser l'infrastructure docker.
+Bonus :
 
-    Domaine et Port :
+Un conteneur avec un serveur Redis pour le cache du site.
+Un conteneur avec un serveur FTP qui pointe vers le volume Wordpress.
+Un conteneur avec une simple page HTML qui l'envoie vers le conteneur Wordpress par FTP.
+Un conteneur avec Adminer pour visualiser la base de donnee.
+Un conteneur avec Portainer pour visualiser l'infrastructure docker.
 
-    Le domaine doit pointer vers votre adresse IP locale ([login].42.fr) et le seul point d'entrée doit être le port 443 sur le conteneur NGINX.
+Domaine et Port :
 
-    Architecture :
+Le domaine doit pointer vers votre adresse IP locale ([login].42.fr)
+et le seul point d'entrée doit être le port 443 sur le conteneur NGINX.
 
 ```bash
 .
 ├── Makefile
-├── output.txt
-├── README
+├── README.md
 └── srcs
     ├── docker-compose.yml
     └── requirements
